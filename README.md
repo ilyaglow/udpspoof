@@ -3,10 +3,12 @@
 About
 -----
 
-This is an experimental library that allows you to use arbitrary source
-IP-address without gopacket or libpcap dependencies. The code is heavily based
-on the [work](https://gist.github.com/chrisnc/0ff3d1c20cb6687454b0) by
+This is an experimental library that allows you to send packets with an
+arbitrary source IP-address and doesn't depend on gopacket. The code is heavily
+based on the [work](https://gist.github.com/chrisnc/0ff3d1c20cb6687454b0) by
 @chrisnc.
+
+It will truncate your payload if the maximum length is exceeded.
 
 Usage example
 -------------
