@@ -16,7 +16,12 @@ Usage example
 ```go
 package main
 
-import "ilya.app/udpspoof"
+import (
+	"log"
+	"net"
+
+	"ilya.app/udpspoof"
+)
 
 func main() {
 	conn, err := udpspoof.NewUDPConn("127.0.0.1:5000")
@@ -24,7 +29,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	_, err = conn.WriteAs(net.ParseIP("8.8.8.8"), []byte("Hello\n"))
+	_, err = conn.WriteAs(net.ParseIP("8.8.8.8"), uint16(53), []byte("Hello\n"))
 	if err != nil {
 		log.Fatal(err)
 	}

@@ -110,11 +110,11 @@ type Conn struct {
 func (c *Conn) Write(payload []byte) (int, error) {
 	c.Lock()
 	defer c.Unlock()
-	return c.WriteAs(c.IPSrc, payload)
+	return c.WriteAs(c.IPSrc, c.SrcPort, payload)
 }
 
 // WriteAs helps to write payload as an IP.
-func (c *Conn) WriteAs(ipsrc net.IP, payload []byte) (int, error) {
+func (c *Conn) WriteAs(ipsrc net.IP, port uint16, payload []byte) (int, error) {
 	addr := unix.SockaddrInet4{}
 
 	ip := iphdr{
@@ -130,7 +130,7 @@ func (c *Conn) WriteAs(ipsrc net.IP, payload []byte) (int, error) {
 	// iplen and csum set later
 
 	udp := udphdr{
-		src: c.SrcPort,
+		src: port,
 		dst: c.DstPort,
 	}
 	if len(payload)+8+20 > 0xffff {
